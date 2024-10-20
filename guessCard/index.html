@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hearthdle</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href ="../dropdown.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <header>
+      Guess Card
+    </header>
+    
+      <main id = "menuBox">
+        <div id = "guessBox">
+          <div class="cardName">
+            <input type="text" id="searchInput" onkeyup="filterFunction()" placeholder="Enter card name...">
+            <div id="dropdownList" class="dropdown-content">
+            </div>
+          </div>
+          <button>Submit</button>
+        </div>
+        <div id = "guessResults">
+         
+        </div>
+      </main>
+    <footer>
+      Footer
+    </footer>
+    <script src = "../dropdown.js"></script>
+    <script src = "../cardPicker.js"></script>
+    <script src="cardGuess.js"></script>
+  </body>
+</html>
