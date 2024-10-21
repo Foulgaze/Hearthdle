@@ -15,7 +15,13 @@ main
 {
 	height:80%;
 }
-#menuBox {
+.cardName
+{
+	position:relative;
+	height:100%;
+}
+#menuBox 
+{
 	display: grid;
 	grid-template-columns: repeat(1, 1fr); 
 	gap: 20px;
@@ -26,6 +32,8 @@ main
 {
 	width:100%;
 	height:10%;
+	display: grid;
+	grid-template-columns: 5fr 1fr;
 }
 #guessBox input
 {
