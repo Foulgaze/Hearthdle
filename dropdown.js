@@ -14,10 +14,10 @@ function filterFunction()
 	}
 	let currentDropdownSize = 0
 	let dropdownSize = dropdownElements.length
-	// Keys already UPPER
-    for(var key in cardData)
+
+	for(var key in cardData)
 	{
-		if(key.indexOf(input) != -1)
+		if(key.startsWith(input) && !guessedCards.has(key))
 		{
 			let currentElement = dropdownElements[currentDropdownSize++]
 			currentElement.innerHTML = cardData[key]["name"]
@@ -40,12 +40,17 @@ function enableDropdown(_)
 	{
 		return
 	}
-	dropdownList.style.display = ""
+	filterFunction()
 }
 
 function disableDropdown(_)
 {
 	hovered_elements = document.querySelectorAll( ":hover" )
+	if(hovered_elements.length == 0)
+	{
+		dropdownList.style.display = "none"
+		return;
+	}
 	last_element = hovered_elements[hovered_elements.length - 1]
 
 	if (!last_element.classList.contains("show")) 
