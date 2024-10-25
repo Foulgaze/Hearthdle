@@ -7,6 +7,7 @@ window.columnHeaders =
 						"Rarity" : "rarityId", 
 						"Card Set" : "cardSetId"
 					}
+const headersToSkip = ["name", "cardTypeId", "classId"]
 let loadCount = 0
 window.guessedCards = new Set()
 function cardFileIsLoaded(data)
@@ -57,6 +58,24 @@ function onDropdownClick(cardName)
 	populateRowWithGuess(row, cardName)
 }
 
+function setupWrongGuess(answer, guess, header, headerName)
+{
+	header.classList.add("red");
+	if(headersToSkip.includes(headerName))
+	{
+		return;
+	}
+	console.log(answer, guess)
+	if(answer > guess)
+	{
+		header.style.backgroundImage = "url(../Assets/Arrow.png)"
+	}
+	else
+	{
+		header.style.backgroundImage = "url(../Assets/Upsidedown_arrow.png)"
+	}
+}
+
 async function populateRowWithGuess(row,cardName)
 {
 	
@@ -70,9 +89,8 @@ async function populateRowWithGuess(row,cardName)
 		}
 		else 
 		{
-			header.classList.add("red")
+			setupWrongGuess( cardToGuess[headerName], data, header, headerName)
 		}
-		// Yellow goes somewhere
 		if(Object.hasOwn(conversionData, headerName))
 		{
 			header.innerHTML = conversionData[headerName][cardData[cardName][headerName]]
