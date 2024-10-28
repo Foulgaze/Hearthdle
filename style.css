@@ -18,20 +18,40 @@ body
     background-repeat:   no-repeat;
     background-position: center center;       
 	display:grid;
-	grid-template-rows: 1fr 3fr 1fr;
+	grid-template-rows: 1fr 2.5fr 1fr;
 	justify-content: center;
 }
 header
 {
-	font-size:5vw;
-	height:10%;
+	height:100%;
+	width:100%;
 	text-align: center;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	/* padding:10%; */
 }
+#pageLogo
+{
+	height:100%;
+	width:auto;
+}
+@media only screen and (max-width: 800px) {
+	#pageLogo
+	{
+		height:70%;
+		width:auto;
+	}
+  }
 main
 {
-	height:max(36.5vw, 47.45vh);
+	/* height:max(36.5vw, 47.45vh); */
+	height:max(32.85vw, 43.8vh);
+
 	border-radius: min(1vw,1vh);
-	width:max(50vw, 65vh);
+	/* width:max(50vw, 65vh); */
+	width:max(45vw, 60vh);
+
 	margin:auto;
 	background-image: url("Assets/hsBoxbackgroundEdit.png");
 	background-size:     cover; 
@@ -43,8 +63,8 @@ main
 {
 	display: grid;
 	grid-template-rows: 1fr 1fr 1fr;
-	height: max(10vw, 12vh);
-	width: max(9vw, 10.8vh);
+	height: max(9vw, 12vh);
+	width: max(8.1vw, 10.8vh);
 	align-items: center; /* Center items vertically */
 	margin: auto; 
     align-items: center;
@@ -52,7 +72,7 @@ main
 
 .gameOption 
 {
-	height:max(1.5vw, 1.7vh);
+	height:max(1.3vw, 1.6vh);
 	width:100%;
 	background: none;
 	color: inherit;
@@ -67,7 +87,7 @@ main
     background-position: center center;   
 	color:black;
 	font-family: "Russo";
-	font-size: max(1vw,1.2vh);
+	font-size: max(.9vw,1.1vh);
 }
 
 footer
