@@ -16,7 +16,6 @@ body
 	background-image: url("Assets/hsBackground.jpg");
 	background-size:     cover; 
     background-repeat:   no-repeat;
-    background-position: center center;       
 	display:grid;
 	grid-template-rows: 1fr 2.5fr 1fr;
 	justify-content: center;

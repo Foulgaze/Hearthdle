@@ -5,6 +5,15 @@ html,body
 	padding:0;
 	margin:0;
 }
+body
+{
+	background-image: url("../Assets/searchBackground.png");
+	background-size:     cover; 
+    background-repeat:   no-repeat;
+    background-position: center center;       
+	display:grid;
+	justify-content: center;
+}
 header
 {
 	font-size:5vw;
