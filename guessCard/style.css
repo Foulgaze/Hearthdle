@@ -1,7 +1,9 @@
 
 html,body
 {
+	min-height:100%;
 	height:100%;
+	width:100%;
 	padding:0;
 	margin:0;
 }
@@ -11,8 +13,10 @@ body
 	background-size:     cover; 
     background-repeat:   no-repeat;
     background-position: center center;       
-	display:grid;
-	justify-content: center;
+	/* display:grid; */
+	/* grid-template-rows: 1fr 10fr 1fr; */
+	background-attachment: fixed;
+	/* justify-content: center; */
 }
 header
 {
@@ -22,50 +26,107 @@ header
 }
 main
 {
-	height:80%;
+	min-height:80%;
 }
-.cardName
+#centeringDiv
 {
-	position:relative;
+	width:100%;
 	height:100%;
+	display:flex;
+	justify-content: center;
+	align-items: end;
 }
+#searchInputBackground
+{
+	width:max(40vw,35vh);
+	height:max(4.6vw ,4.025vh);
+	max-width: 400px;
+	max-height: 46px;
+	background-image: url("../Assets/searchBar.png");
+	background-size:     cover; 
+	background-position: center center;    
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	
+}
+#searchInputHolder
+{
+	width:92%;
+	height:70%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 #menuBox 
 {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr); 
-	gap: 20px;
-	width: 30%; 
+	/* display: grid; */
+	/* grid-template-rows: 1fr 9fr;  */
+	width: max(40vw,35vh); 
 	margin: auto; 
+}
+
+#dropdownCenteringDiv
+{
+	width:100%;
+	height:100%;
+	display:flex;
+	justify-content: center;
+}
+
+#dropdownHolder
+{
+	width:max(40vw,35vh);
+	display:flex;
+	justify-content: center;
+	max-width: 400px;
+	position: relative;
 }
 #guessBox
 {
 	width:100%;
-	height:10%;
-	display: grid;
-	grid-template-columns: 5fr 1fr;
+	height:100%;
 }
-#guessBox input
+#guessResults
 {
-	width:100%;
+	display:flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 4px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 .individualGuess
 {
 	display: grid; 
-	grid-template-columns: repeat(6, minmax(0, 1fr));
-	gap: 10px; 
+	grid-template-columns: repeat(6, minmax(0, max(5vw,5vh)));
 	justify-items: center;
+	gap: max(0.3vh,0.3vw);
+	animation:ease-in 2s;
+
+}
+.individualGuess p
+{
+	text-align: center;
+	font-size:max(1vh,1vw);
 }
 
 .individualGuess .green
 {
 	color:white;
-
+	background-image: url("../Assets/hearthleGuessBackgroundGreen.png");
 	background-color:  green;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
 .individualGuess .red
 {
-	color:white;
-	background-color:  #7F0000;
+	background-image: url("../Assets/hearthleGuessBackgroundRed.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -76,30 +137,41 @@ main
 }
 .individualGuess div 
 {
-	width: 5vw;
-	height: 5vw;
+	/* width: max(5vw, 5vh); */
+	height: max(5vw,5vh);
+	width:100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	font-size: 1vw;
+	font-size: max(1vw,1vh);
+	margin:0;
+	padding:0;
+	animation: fadeIn 0.5s ease-in forwards;
+	
 }
 #correctGuess
 {
 	background-color: yellowgreen;
 	border-radius: 1vw;
+	height:auto;
 }
 #correctGuess h1
 {
 	text-align: center;
+	font-family: "Russo";
 }
 #correctGuess img
 {
 	margin: auto;
+	max-width: 400px;
 	display: block;
+	width:max(40vw,35vh);
+	height:auto;
 }
 
 footer
 {
+	bottom:0;
 	height:10%;
 }

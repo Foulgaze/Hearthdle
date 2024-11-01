@@ -68,17 +68,19 @@ function setupWrongGuess(answer, guess, header, headerName)
 	console.log(answer, guess)
 	if(answer > guess)
 	{
-		header.style.backgroundImage = "url(../Assets/Arrow.png)"
+		header.style.backgroundImage = "url(../Assets/hearthleGuessBackgroundArrow.png)"
 	}
 	else
 	{
-		header.style.backgroundImage = "url(../Assets/Upsidedown_arrow.png)"
+		header.style.backgroundImage = "url(../Assets/hearthleGuessBackgroundArrow.png)"
 	}
 }
 
 async function populateRowWithGuess(row,cardName)
 {
-	
+	guessResults.appendChild(row)
+	let count = 0;
+	let timeoutValue = 450;
 	Object.values(columnHeaders).forEach(headerName =>
 	{
 		const header = document.createElement("div")
@@ -91,6 +93,7 @@ async function populateRowWithGuess(row,cardName)
 		{
 			setupWrongGuess( cardToGuess[headerName], data, header, headerName)
 		}
+		console.log(header)
 		if(Object.hasOwn(conversionData, headerName))
 		{
 			header.innerHTML = conversionData[headerName][cardData[cardName][headerName]]
@@ -100,15 +103,17 @@ async function populateRowWithGuess(row,cardName)
 			header.innerHTML = cardData[cardName][headerName]
 
 		}
-		row.appendChild(header)
+		setTimeout(() => row.appendChild(header), timeoutValue * count)
+		count += 1
 	})
-	guessResults.appendChild(row)
+	
 	if(cardName == cardToGuess["name"].toUpperCase())
 	{
-		document.getElementById("correctGuess").style.display = "";
-		document.getElementById("guessBox").style.display = "none";
+		document.getElementById("correctGuess").style.display = ""
+		document.getElementById("guessBox").remove()
+		document.getElementById("menuBox").style.gridTemplateRows = "1fr"
 		let guess_tense = guessedCards.size == 1 ? "guess" : "guesses";
-		document.getElementById("victoryText").innerHTML = `You did it in ${guessedCards.size} ${guess_tense}!`
+		document.getElementById("victoryText").innerHTML = `Card found in ${guessedCards.size} ${guess_tense}!`
 	}
 }
 
