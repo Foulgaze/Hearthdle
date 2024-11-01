@@ -36,7 +36,7 @@
     z-index: 1;
     display: block;
     width: 100%;
-    background-image: url("Assets/searchBackground.png");
+    background-image: url("Assets/dropdownBackground.png");
     background-position: center;
 	background-repeat: no-repeat;
     /* left: 0;  */
