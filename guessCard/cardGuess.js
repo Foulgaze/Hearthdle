@@ -1,14 +1,12 @@
 window.columnHeaders = 
 					{
-						"Name" : "name",
-						"Mana Cost" : "manaCost", 
-						"Classes" : "classId", 
-						"Card Type" : "cardTypeId", 
-						"Rarity" : "rarityId", 
-						"Card Set" : "cardSetId"
+						"Name" : new StringGuess("name", false),
+						"Mana Cost" : new NumericGuess("manaCost", false), 
+						"Classes" : new ClassIDGuess("classId", true), 
+						"Card Type" : new StringGuess("cardTypeId", true), 
+						"Rarity" : new NumericGuess("rarityId", true),
+						"Card Set" : new NumericGuess("cardSetId", true)
 					}
-
-
 
 const headersToSkip = ["name", "cardTypeId", "classId"]
 let loadCount = 0
@@ -57,22 +55,13 @@ function onDropdownClick(cardName)
 	populateRowWithGuess(row, cardName)
 }
 
-function setupWrongGuess(answer, guess, header, headerName)
+function setupCorrectGuess()
 {
-	header.classList.add("red");
-	if(headersToSkip.includes(headerName))
-	{
-		return;
-	}
-	console.log(answer, guess)
-	if(answer > guess)
-	{
-		header.style.backgroundImage = "url(../Assets/CardGuess/CardGuessBorders/guessUpArrow.png)"
-	}
-	else
-	{
-		header.style.backgroundImage = "url(../Assets/CardGuess/CardGuessBorders/guessDownArrow.png)"
-	}
+	document.getElementById("correctGuess").style.display = ""
+	document.getElementById("guessBox").remove()
+	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
+	let guess_tense = guessedCards.size == 1 ? "guess" : "guesses";
+	document.getElementById("victoryText").innerHTML = `Card found in ${guessedCards.size} ${guess_tense}!`
 }
 
 async function populateRowWithGuess(row,cardName)
@@ -80,39 +69,21 @@ async function populateRowWithGuess(row,cardName)
 	guessResults.appendChild(row)
 	let count = 0;
 	let timeoutValue = 450;
-	Object.values(columnHeaders).forEach(headerName =>
+	Object.values(columnHeaders).forEach(comparisonObject =>
 	{
 		const header = document.createElement("div")
-		let data = cardData[cardName][headerName]
-		if(data == cardToGuess[headerName]) 
-		{
-			header.classList.add("green")
-		}
-		else 
-		{
-			setupWrongGuess( cardToGuess[headerName], data, header, headerName)
-		}
-		console.log(header)
-		if(Object.hasOwn(conversionData, headerName))
-		{
-			header.innerHTML = conversionData[headerName][cardData[cardName][headerName]]
-		}
-		else
-		{
-			header.innerHTML = cardData[cardName][headerName]
-
-		}
+		header.classList.add("individualGuess")
+		let data = cardData[cardName]
+		header.style.backgroundImage = `url(../Assets/CardGuess/Borders/${comparisonObject.getBackgroundURL(cardToGuess, data)}.png)`
+		let result = comparisonObject.getGuessText(data, conversionData)
+		header.innerHTML = result
 		setTimeout(() => row.appendChild(header), timeoutValue * count)
 		count += 1
 	})
 	
 	if(cardName == cardToGuess["name"].toUpperCase())
 	{
-		document.getElementById("correctGuess").style.display = ""
-		document.getElementById("guessBox").remove()
-		document.getElementById("menuBox").style.gridTemplateRows = "1fr"
-		let guess_tense = guessedCards.size == 1 ? "guess" : "guesses";
-		document.getElementById("victoryText").innerHTML = `Card found in ${guessedCards.size} ${guess_tense}!`
+		setupCorrectGuess()
 	}
 }
 

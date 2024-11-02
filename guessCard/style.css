@@ -115,26 +115,14 @@ main
 	font-size:max(1vh,1vw);
 }
 
-.individualGuess .green
+.individualGuess
 {
-	color:white;
-	background-image: url("../Assets/CardGuess/CardGuessBorders/guessCorrect.png");
-	background-color:  green;
+	background-image: none;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
 }
-.individualGuess .red
-{
-	background-image: url("../Assets/CardGuess/CardGuessBorders/guessWrong.png");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-.individualGuess .yellow
-{
-	background-color:  yellow;
-}
+
 .individualGuess div 
 {
 	/* width: max(5vw, 5vh); */
