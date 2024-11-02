@@ -83,6 +83,7 @@ function createButtons(count, dropdown, onClickfunction)
 		link.onclick = function()
 		{
 			dropdownList.style.display = "none"
+			inputField.value = ""
 			onClickfunction(link.innerHTML.toUpperCase())
 		}
         dropdown.appendChild(link) // Append the link to the container

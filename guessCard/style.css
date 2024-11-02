@@ -9,7 +9,7 @@ html,body
 }
 body
 {
-	background-image: url("../Assets/searchBackground.png");
+	background-image: url("../Assets/CardGuess/background.png 	");
 	background-size:     cover; 
     background-repeat:   no-repeat;
     background-position: center center;       
@@ -42,7 +42,7 @@ main
 	height:max(4.6vw ,4.025vh);
 	max-width: 400px;
 	max-height: 46px;
-	background-image: url("../Assets/searchBar.png");
+	background-image: url("../Assets/SearchBar/searchBar.png");
 	background-size:     cover; 
 	background-position: center center;    
 	display:flex;
@@ -118,7 +118,7 @@ main
 .individualGuess .green
 {
 	color:white;
-	background-image: url("../Assets/hearthleGuessBackgroundGreen.png");
+	background-image: url("../Assets/CardGuess/CardGuessBorders/guessCorrect.png");
 	background-color:  green;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -126,7 +126,7 @@ main
 }
 .individualGuess .red
 {
-	background-image: url("../Assets/hearthleGuessBackgroundRed.png");
+	background-image: url("../Assets/CardGuess/CardGuessBorders/guessWrong.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;

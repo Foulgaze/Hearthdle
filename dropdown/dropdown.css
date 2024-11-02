@@ -7,7 +7,7 @@
 @font-face 
 {
     font-family: "Russo";
-    src: url("Assets/russo-one/RussoOne-Regular.ttf");
+    src: url("../Assets/Fonts/russo-one/RussoOne-Regular.ttf");
 }
 #searchInput 
 {
@@ -36,7 +36,7 @@
     z-index: 1;
     display: block;
     width: 100%;
-    background-image: url("Assets/dropdownBackground.png");
+    background-image: url("../Assets/SearchBar/dropdownBackground.png");
     background-position: center;
 	background-repeat: no-repeat;
     /* left: 0;  */
@@ -53,7 +53,14 @@
     padding: 12px 16px;
     display: none;
     text-decoration: none;
-    color: black;
+    color: white;
+    text-align: left;
+    font-family: "Russo";
+}
+
+.dropdown-content button:hover
+{
+    background-color: gray;
 }
 
 .dropdown-content button.show 

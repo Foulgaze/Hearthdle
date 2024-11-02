@@ -8,12 +8,12 @@ html,body
 @font-face 
 {
     font-family: "Russo";
-    src: url("Assets/russo-one/RussoOne-Regular.ttf");
+    src: url("Assets/Fonts/russo-one/RussoOne-Regular.ttf");
 }
 
 body
 {
-	background-image: url("Assets/hsBackground.jpg");
+	background-image: url("Assets/HomePage/hsBackground.jpg");
 	background-size:     cover; 
     background-repeat:   no-repeat;
 	display:grid;
@@ -44,15 +44,11 @@ header
   }
 main
 {
-	/* height:max(36.5vw, 47.45vh); */
 	height:max(32.85vw, 43.8vh);
-
 	border-radius: min(1vw,1vh);
-	/* width:max(50vw, 65vh); */
 	width:max(45vw, 60vh);
-
 	margin:auto;
-	background-image: url("Assets/hsBoxbackgroundEdit.png");
+	background-image: url("Assets/HomePage/hsBoxbackground.png");
 	background-size:     cover; 
     background-repeat:   no-repeat;
     background-position: center center;   

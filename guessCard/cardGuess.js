@@ -7,6 +7,9 @@ window.columnHeaders =
 						"Rarity" : "rarityId", 
 						"Card Set" : "cardSetId"
 					}
+
+
+
 const headersToSkip = ["name", "cardTypeId", "classId"]
 let loadCount = 0
 window.guessedCards = new Set()
@@ -40,10 +43,6 @@ function setupGuessCategories()
 
 function onDropdownClick(cardName)
 {
-	if(guessedCards.has(cardName))
-	{
-		return;
-	}
 	if(guessResults.childElementCount == 0)
 	{
 		setupGuessCategories()
@@ -68,11 +67,11 @@ function setupWrongGuess(answer, guess, header, headerName)
 	console.log(answer, guess)
 	if(answer > guess)
 	{
-		header.style.backgroundImage = "url(../Assets/hearthleGuessBackgroundArrow.png)"
+		header.style.backgroundImage = "url(../Assets/CardGuess/CardGuessBorders/guessUpArrow.png)"
 	}
 	else
 	{
-		header.style.backgroundImage = "url(../Assets/hearthleGuessBackgroundArrow.png)"
+		header.style.backgroundImage = "url(../Assets/CardGuess/CardGuessBorders/guessDownArrow.png)"
 	}
 }
 
@@ -124,12 +123,12 @@ function dataHasErrored(error)
 
 function beginFetchingCardData()
 {
-	fetch('../Assets/all_cards.json').then(response => response.json()) .then(data => {cardFileIsLoaded(data)}).catch(error => dataHasErrored(error));
+	fetch('../Assets/CardData/all_cards.json').then(response => response.json()) .then(data => {cardFileIsLoaded(data)}).catch(error => dataHasErrored(error));
 }
 
 function pageIsLoaded()
 {
-	fetch('../Assets/id_conversions.json').then
+	fetch('../Assets/CardData/id_conversions.json').then
 	(response => response.json())
 	.then(data => {window.conversionData = data; beginFetchingCardData()})
 	.catch(error => dataHasErrored(error));
