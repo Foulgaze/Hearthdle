@@ -11,7 +11,10 @@
   </head>
   <body>
     <header>
-      Guess Card
+      <!-- <img src="../Assets/hearthle_logo.webp"> -->
+      <a href="../index.html">
+        <input type="image"  id="saveform" src="../Assets/hearthle_logo.webp" alt="Submit Form" />
+      </a>
     </header>
     
       <main id = "menuBox">
@@ -34,14 +37,20 @@
         <div id = "guessResults">
          
         </div>
-        <div id = "correctGuess" style ="display: none;">
-          <h1 id = "victoryText">You did it</h1>
-          <img id = "correctGuessImage">
+        <div id = "correctGuessHolder">
+          <div id = "correctGuess" style ="display: none;">
+            <h1 id = "victoryText">You did it</h1>
+            <div id ="correctGuessImageHolder">
+              <img id = "correctGuessImage">
+            </div>
+          </div>
         </div>
+        
       </main>
     <footer>
       Footer
     </footer>
+    <script src = "../cookies.js"></script>
     <script src = "../dropdown/dropdown.js"></script>
     <script src = "guessObjects.js"></script>
     <script src = "../cardPicker.js"></script>

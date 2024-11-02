@@ -8,10 +8,8 @@ window.columnHeaders =
 						"Card Set" : new NumericGuess("cardSetId", true)
 					}
 
-const headersToSkip = ["name", "cardTypeId", "classId"]
-let loadCount = 0
 window.guessedCards = new Set()
-function cardFileIsLoaded(data)
+function cardDataIsLoaded(data)
 {
 	window.cardData = data
 	window.cardToGuess = getDailyCard(cardData)
@@ -23,6 +21,7 @@ function cardFileIsLoaded(data)
 function setupCorrectCard()
 {
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
+
 }
 
 
@@ -61,7 +60,7 @@ function setupCorrectGuess()
 	document.getElementById("guessBox").remove()
 	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
 	let guess_tense = guessedCards.size == 1 ? "guess" : "guesses";
-	document.getElementById("victoryText").innerHTML = `Card found in ${guessedCards.size} ${guess_tense}!`
+	document.getElementById("victoryText").innerHTML = `Solved in ${guessedCards.size} ${guess_tense}!`
 }
 
 async function populateRowWithGuess(row,cardName)
@@ -94,7 +93,10 @@ function dataHasErrored(error)
 
 function beginFetchingCardData()
 {
-	fetch('../Assets/CardData/all_cards.json').then(response => response.json()) .then(data => {cardFileIsLoaded(data)}).catch(error => dataHasErrored(error));
+	fetch('../Assets/CardData/all_cards.json').then
+	(response => response.json()).then
+	(data => {cardDataIsLoaded(data)}).catch
+	(error => dataHasErrored(error));
 }
 
 function pageIsLoaded()
