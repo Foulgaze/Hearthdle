@@ -6,23 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hearthdle</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href ="../dropdown/dropdown.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
   </head>
   <body>
     <header>
-      Guess Art
+      <!-- <img src="../Assets/hearthle_logo.webp"> -->
+      <a href="../index.html">
+        <input type="image"  id="saveform" src="../Assets/hearthle_logo.webp" alt="Submit Form" />
+      </a>
     </header>
-      <main>
+    
+      <main id = "menuBox">
+        <div id = "cardArtHolder">
+          <img id = "cardArt">
+        </div>
         <div id = "guessBox">
-        
+            <div id="centeringDiv">
+              <div id="searchInputBackground">
+                <div id="searchInputHolder">
+                  <input type="text" id="searchInput" onkeyup="filterFunction()" placeholder="Enter card name...">
+                </div>
+              </div>
+            </div>
+            <div id="dropdownCenteringDiv">
+              <div id="dropdownHolder">
+                <div id="dropdownList" class="dropdown-content">
+              </div>
+            </div>
+            
+          </div>
         </div>
         <div id = "guessResults">
-
+         
         </div>
+        <h2 id = "streak"></h2>
+
+        <div id = "countdownTimer" class = "victoryCondition">
+          <div>
+            <p style = "font-family: 'Russo';text-align: center; padding:0; margin:0;font-size:max(.75vw,1.25vh);">Next card in</p>
+            <p id = "countdown"></p>
+          </div>
+        </div>
+        <div id = "correctGuessHolder">
+          <div id = "correctGuess" class = "victoryCondition">
+            <h1 id = "victoryText">You did it</h1>
+            <div id ="correctGuessImageHolder">
+              <img id = "correctGuessImage">
+            </div>
+          </div>
+        </div>
+        
       </main>
-    <footer>
-      Footer
-    </footer>
+
+    <script src = "../cookies.js"></script>
+    <script src = "../dropdown/dropdown.js"></script>
+    <script src = "../cardPicker.js"></script>
     <script src="artGuess.js"></script>
   </body>
 </html>

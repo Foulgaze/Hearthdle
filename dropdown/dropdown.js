@@ -17,7 +17,7 @@ function filterFunction()
 
 	for(var key in cardData)
 	{
-		if(key.startsWith(input) && !guessedCards.has(key))
+		if(key.startsWith(input) && !guessedCards.includes(key))
 		{
 			let currentElement = dropdownElements[currentDropdownSize++]
 			currentElement.innerHTML = cardData[key]["name"]
@@ -83,6 +83,7 @@ function createButtons(count, dropdown, onClickfunction)
 		link.onclick = function()
 		{
 			dropdownList.style.display = "none"
+			inputField.value = ""
 			onClickfunction(link.innerHTML.toUpperCase())
 		}
         dropdown.appendChild(link) // Append the link to the container

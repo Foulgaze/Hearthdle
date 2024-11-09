@@ -1,7 +1,7 @@
-function seededRandom(seed) 
+function seededRandom(seed, seedOffset) 
 {
-	const a = 1664525;
-	const c = 1013904223;
+	const a = 1664525 * seedOffset;
+	const c = 1013904223 * seedOffset;
 	const m = Math.pow(2, 32);
   
 	let value = (a * seed + c) % m;
@@ -9,15 +9,15 @@ function seededRandom(seed)
 }
 
 
-function getRandomRange(end)
+function getRandomRange(end, seedOffset)
 {
-	let unscaled_value = seededRandom(new Date().getDate())
+	let unscaled_value = seededRandom(new Date().getDate(), seedOffset)
 	return Math.floor(unscaled_value * end);
 }
 
-function getDailyCard(cardData)
+function getDailyCard(cardData, seedOffset = 1)
 {
 	let keys = Object.keys(cardData)
-	let randomCard = getRandomRange(keys.length)
+	let randomCard = getRandomRange(keys.length, seedOffset)
 	return cardData[keys[randomCard]]
 }
