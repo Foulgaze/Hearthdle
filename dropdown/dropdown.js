@@ -17,7 +17,7 @@ function filterFunction()
 
 	for(var key in cardData)
 	{
-		if(key.startsWith(input) && !guessedCards.has(key))
+		if(key.startsWith(input) && !guessedCards.includes(key))
 		{
 			let currentElement = dropdownElements[currentDropdownSize++]
 			currentElement.innerHTML = cardData[key]["name"]

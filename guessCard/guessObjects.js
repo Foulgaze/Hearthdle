@@ -48,7 +48,6 @@ class ClassIDGuess extends AbstractGuess
 		let cardToGuessClasses = this.getClassSet(cardToGuess)
 		let guessedCardClasses = this.getClassSet(guessedCard)
 		let classIntersection = cardToGuessClasses.intersection(guessedCardClasses)
-		console.log(cardToGuessClasses, guessedCardClasses, classIntersection)
 		if(cardToGuessClasses.size == classIntersection.size && guessedCardClasses.size == classIntersection.size)
 		{
 			return backgroundTypes.Green;

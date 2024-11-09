@@ -1,19 +1,28 @@
 function getCookie(name) 
 {
 	const cookieArr = document.cookie.split("; ");
-	for (let cookie of cookieArr) {
+	for (let cookie of cookieArr) 
+	{
 		const [key, value] = cookie.split("=");
-		if (key === name) {
+		if (key === name) 
+		{
 			return decodeURIComponent(value);
 		}
 	}
 	return null;
 }
 
-function setCookie(name, value, days = 7) 
+function setCookie(name, value) 
 {
-	const expires = new Date(Date.now() + days * 864e5).toUTCString();
-	document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999); 
+    const expires = "expires=" + endOfDay.toUTCString();
+	document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; SameSite=Lax; path=/`;
+}
+
+function setCookieExperiationDate(name, value, date)
+{
+	
 }
 
 function deleteCookie(name) 

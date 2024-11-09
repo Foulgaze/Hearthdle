@@ -8,25 +8,47 @@ window.columnHeaders =
 						"Card Set" : new NumericGuess("cardSetId", true)
 					}
 
-window.guessedCards = new Set()
+window.guessedCards = []
+window.countDownTimer = null
+window.priorDay = null
+const lastSolvedDayCookie = "priorSolveDate"
+const streakCookie = "streak"
 function cardDataIsLoaded(data)
 {
 	window.cardData = data
 	window.cardToGuess = getDailyCard(cardData)
 	console.log(cardToGuess)
-	setupCorrectCard()
-	setupDropdown(onDropdownClick, document.getElementById("searchInput"))
-}
-
-function setupCorrectCard()
-{
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
-
+	loadPriorGuesses()
+	setupDropdown(onCardGuess, document.getElementById("searchInput"))
 }
 
+function loadPriorGuesses()
+{
+	let priorGuesses = getCookie("priorGuesses")
+	if(priorGuesses == null)
+	{
+		return
+	}
+	JSON.parse(priorGuesses).forEach(cardName => onCardGuess(cardName, false))
+}
 
+function updateAttemptCountCookie()
+{
+	let attemptCount = getCookie("attemptCount")
+	if(attemptCount == null)
+	{
+		setCookie("attemptCount", 1, 100)
+	}
+	else
+	{
+		setCookie("attemptCount",parseInt(attemptCount) + 1, 100 )
+	}
+}
 function setupGuessCategories()
 {
+	updateAttemptCountCookie()
+	console.log(getCookie("attemptCount"))
 	const row = document.createElement("div")
 	row.classList.add("individualGuess")
 	Object.keys(columnHeaders).forEach(columnHeader =>
@@ -38,7 +60,7 @@ function setupGuessCategories()
 	guessResults.appendChild(row)
 }
 
-function onDropdownClick(cardName)
+function onCardGuess(cardName, slowReveal = true)
 {
 	if(guessResults.childElementCount == 0)
 	{
@@ -50,20 +72,90 @@ function onDropdownClick(cardName)
 	}
 	const row = document.createElement("div")
 	row.classList.add("individualGuess")
-	guessedCards.add(cardName)
-	populateRowWithGuess(row, cardName)
+	guessedCards.push(cardName)
+	if(slowReveal)
+	{
+		setCookie("priorGuesses", JSON.stringify(guessedCards))
+	}
+	populateRowWithGuess(row, cardName, slowReveal)
 }
 
-function setupCorrectGuess()
+function setCountdownTimer(countdownElement)
 {
-	document.getElementById("correctGuess").style.display = ""
+	let currentDate = new Date()
+	if(priorDay != null && currentDate.getDate() != priorDay.getDate())
+	{
+		deleteCookie("priorGuesses") // Just in case not automatically deleted 
+		location.reload()
+	}
+	let remainingHours = (23 - currentDate.getHours()).toString().padStart(2, '0')
+	let remainingMinutes = (59 - currentDate.getMinutes()).toString().padStart(2, '0')
+	let remainingSeconds = (59 - currentDate.getSeconds()).toString().padStart(2, '0')
+	countdownElement.innerHTML = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`
+	priorDay = currentDate
+
+}
+function dateToString(date)
+{
+	return `${date.getDate()},${date.getMonth()},${date.getYear()}`
+}
+function updateStreak()
+{
+	let today = new Date()
+	let yesterday = new Date(today.getDate() - 1)
+	let priorSolveDate = getCookie(lastSolvedDayCookie)
+	if(priorSolveDate == null)
+	{
+		setCookie(lastSolvedDayCookie, dateToString(today))
+		setCookie(streakCookie, "1")
+	}
+	else
+	{
+		if (priorSolveDate == dateToString(yesterday))
+		{
+			let streakLength = parseInt(getCookie(streakCookie))
+			setCookie(streakCookie, (streakLength + 1).toString())
+		}
+		else
+		{
+			setCookie(streakCookie, "1")
+		}
+	}
+}
+function setupVictory(firstVictory)
+{
+	// Clear elements
+	document.querySelectorAll('.victoryCondition').forEach(element =>
+	{
+		console.log(element)
+		element.classList.remove('victoryCondition')
+	})
 	document.getElementById("guessBox").remove()
 	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
-	let guess_tense = guessedCards.size == 1 ? "guess" : "guesses";
-	document.getElementById("victoryText").innerHTML = `Solved in ${guessedCards.size} ${guess_tense}!`
+
+	//Setup text
+	let guess_tense = guessedCards.length == 1 ? "guess" : "guesses";
+	document.getElementById("victoryText").innerHTML = `Solved in ${guessedCards.length} ${guess_tense}!`
+
+	// Scroll to bottom
+	const scrollingElement = (document.scrollingElement || document.body);
+	scrollingElement.scrollTop = scrollingElement.scrollHeight;
+	
+	// Setup countdown
+	let countdownTimer = document.getElementById("countdown")
+	setCountdownTimer(countdownTimer)
+	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
+
+	// Set Streak
+	if(firstVictory)
+	{
+		updateStreak()
+	}
+	document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
+
 }
 
-async function populateRowWithGuess(row,cardName)
+async function populateRowWithGuess(row,cardName, slowReveal)
 {
 	guessResults.appendChild(row)
 	let count = 0;
@@ -76,13 +168,21 @@ async function populateRowWithGuess(row,cardName)
 		header.style.backgroundImage = `url(../Assets/CardGuess/Borders/${comparisonObject.getBackgroundURL(cardToGuess, data)}.png)`
 		let result = comparisonObject.getGuessText(data, conversionData)
 		header.innerHTML = result
-		setTimeout(() => row.appendChild(header), timeoutValue * count)
+		if(slowReveal)
+		{
+			header.classList.add("fadeInGuess")
+			setTimeout(() => row.appendChild(header), timeoutValue * count)
+		}
+		else
+		{
+			row.appendChild(header)
+		}
 		count += 1
 	})
 	
 	if(cardName == cardToGuess["name"].toUpperCase())
 	{
-		setupCorrectGuess()
+		setupVictory(slowReveal)
 	}
 }
 

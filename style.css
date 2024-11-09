@@ -76,13 +76,13 @@ main
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-	background-image: url("Assets/hearthstoneButton.png");
+	background-image: url("Assets/HomePage/hearthstoneButton.png");
 	background-size:     cover; 
     background-repeat:   no-repeat;
     background-position: center center;   
 	color:black;
 	font-family: "Russo";
-	font-size: max(.9vw,1.1vh);
+	font-size: max(.8vw,1vh);
 }
 
 footer
