@@ -3,12 +3,17 @@ window.countDownTimer = null
 window.priorDay = null
 const lastSolvedDayCookie = "priorSolveDate"
 const streakCookie = "streak"
-const letGuessPercentages = [150,250,500,750,1000]
+const guessPercentages = [150,250,500,750,1000]
+const cookiePath = "guessArt"
 function cardDataIsLoaded(data)
 {
 	window.cardData = data
 	window.cardToGuess = getDailyCard(cardData, 3)
-	document.getElementById("cardArtHolder").style.backgroundImage = `url(${cardToGuess["image"]})`
+	document.getElementById("guessesRemaining").innerHTML = `${guessPercentages.length + 1 - guessedCards.length} Guesses Remaining`
+	window.artHolder = document.getElementById("cardArtHolder")
+	artHolder.style.backgroundImage = `url(${cardToGuess["image"]})`
+	console.log(cardToGuess)
+	document.getElementById("correctGuessImage").src = cardToGuess["image"]
 	loadPriorGuesses()
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
 }
@@ -23,22 +28,9 @@ function loadPriorGuesses()
 	JSON.parse(priorGuesses).forEach(cardName => onCardGuess(cardName, false))
 }
 
-function updateAttemptCountCookie()
-{
-	let attemptCount = getCookie("attemptCount")
-	if(attemptCount == null)
-	{
-		setCookie("attemptCount", 1, 100)
-	}
-	else
-	{
-		setCookie("attemptCount",parseInt(attemptCount) + 1, 100 )
-	}
-}
+
 function setupGuessCategories()
 {
-	updateAttemptCountCookie()
-	console.log(getCookie("attemptCount"))
 	const row = document.createElement("div")
 	row.classList.add("individualGuess")
 	guessResults.appendChild(row)
@@ -46,14 +38,38 @@ function setupGuessCategories()
 
 function onCardGuess(cardName, slowReveal = true)
 {
-	const row = document.createElement("div")
-	row.classList.add("individualGuess")
+	let isCorrectCard = cardName == cardToGuess["name"].toUpperCase()
+	const guessElement = document.createElement("div")
+	const cardNameElement = document.createElement("p");
+	guessElement.classList.add("individualGuess")
+	cardNameElement.innerHTML = cardName
 	guessedCards.push(cardName)
+	document.getElementById("guessesRemaining").innerHTML = `${guessPercentages.length + 1 - guessedCards.length} Guesses Remaining`
+
 	if(slowReveal)
 	{
-		setCookie("priorGuesses", JSON.stringify(guessedCards))
+		setCookie("priorGuesses", JSON.stringify(guessedCards), undefined, cookiePath)
 	}
-	populateRowWithGuess(row, cardName, slowReveal)
+	guessResults.appendChild(guessElement)
+	guessElement.appendChild(cardNameElement)
+	let backgroundImageName = isCorrectCard ? "correctName" : "incorrectName"
+	guessElement.style.backgroundImage = `url(../Assets/ArtGuess/${backgroundImageName}.png)`
+	if(isCorrectCard)
+	{
+		endGuessing(slowReveal, isCorrectCard)
+		return
+	}
+	else
+	{
+		if (guessedCards.length > guessPercentages.length)
+		{
+			endGuessing(slowReveal, false)
+			return
+		}
+	}
+	artHolder.style.backgroundSize = `${guessPercentages[guessPercentages.length - 1 - (guessedCards.length - 1)]}%` 
+	console.log(`${guessPercentages[guessPercentages.length - 1 - (guessedCards.length - 1)]}%` )
+
 }
 
 function setCountdownTimer(countdownElement)
@@ -82,23 +98,23 @@ function updateStreak()
 	let priorSolveDate = getCookie(lastSolvedDayCookie)
 	if(priorSolveDate == null)
 	{
-		setCookie(lastSolvedDayCookie, dateToString(today))
-		setCookie(streakCookie, "1")
+		setCookie(lastSolvedDayCookie, dateToString(today), 365, cookiePath)
+		setCookie(streakCookie, "1", 365, cookiePath)
 	}
 	else
 	{
 		if (priorSolveDate == dateToString(yesterday))
 		{
 			let streakLength = parseInt(getCookie(streakCookie))
-			setCookie(streakCookie, (streakLength + 1).toString())
+			setCookie(streakCookie, (streakLength + 1).toString(),365, cookiePath )
 		}
 		else
 		{
-			setCookie(streakCookie, "1")
+			setCookie(streakCookie, "1", 365, cookiePath)
 		}
 	}
 }
-function setupVictory(firstVictory)
+function endGuessing(firstVictory, wonGame)
 {
 	// Clear elements
 	document.querySelectorAll('.victoryCondition').forEach(element =>
@@ -109,9 +125,23 @@ function setupVictory(firstVictory)
 	document.getElementById("guessBox").remove()
 	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
 
-	//Setup text
-	let guess_tense = guessedCards.length == 1 ? "guess" : "guesses";
-	document.getElementById("victoryText").innerHTML = `Solved in ${guessedCards.length} ${guess_tense}!`
+	if(wonGame)
+	{
+		//Setup text
+		let guess_tense = guessedCards.length == 1 ? "guess" : "guesses";
+		document.getElementById("victoryText").innerHTML = `Solved in ${guessedCards.length} ${guess_tense}!`
+
+		if(firstVictory)
+		{
+			updateStreak()
+		}
+		document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
+	}
+	else
+	{
+		document.getElementById("victoryText").innerHTML = `You didn't get the card`
+	}
+
 
 	// Scroll to bottom
 	const scrollingElement = (document.scrollingElement || document.body);
@@ -121,42 +151,9 @@ function setupVictory(firstVictory)
 	let countdownTimer = document.getElementById("countdown")
 	setCountdownTimer(countdownTimer)
 	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
-
-	// Set Streak
-	if(firstVictory)
-	{
-		updateStreak()
-	}
-	document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
-
 }
 
-async function populateRowWithGuess(row,cardName, slowReveal)
-{
-	guessResults.appendChild(row)
-	let count = 0;
-	let timeoutValue = 450;
-	
-	const header = document.createElement("div")
-	header.classList.add("individualGuess")
-	let data = cardData[cardName]
-	header.style.backgroundImage = `url(../Assets/CardGuess/Borders/${comparisonObject.getBackgroundURL(cardToGuess, data)}.png)`
-	let result = comparisonObject.getGuessText(data, conversionData)
-	header.innerHTML = result
-	if(slowReveal)
-	{
-		header.classList.add("fadeInGuess")
-		setTimeout(() => row.appendChild(header), timeoutValue * count)
-	}
-	else
-	{
-		row.appendChild(header)
-	}	
-	if(cardName == cardToGuess["name"].toUpperCase())
-	{
-		setupVictory(slowReveal)
-	}
-}
+
 
 function dataHasErrored(error)
 {

@@ -13,6 +13,7 @@ window.countDownTimer = null
 window.priorDay = null
 const lastSolvedDayCookie = "priorSolveDate"
 const streakCookie = "streak"
+const cookiePath = "guessCard"
 function cardDataIsLoaded(data)
 {
 	window.cardData = data
@@ -33,22 +34,9 @@ function loadPriorGuesses()
 	JSON.parse(priorGuesses).forEach(cardName => onCardGuess(cardName, false))
 }
 
-function updateAttemptCountCookie()
-{
-	let attemptCount = getCookie("attemptCount")
-	if(attemptCount == null)
-	{
-		setCookie("attemptCount", 1, 100)
-	}
-	else
-	{
-		setCookie("attemptCount",parseInt(attemptCount) + 1, 100 )
-	}
-}
+
 function setupGuessCategories()
 {
-	updateAttemptCountCookie()
-	console.log(getCookie("attemptCount"))
 	const row = document.createElement("div")
 	row.classList.add("individualGuess")
 	Object.keys(columnHeaders).forEach(columnHeader =>
@@ -75,7 +63,7 @@ function onCardGuess(cardName, slowReveal = true)
 	guessedCards.push(cardName)
 	if(slowReveal)
 	{
-		setCookie("priorGuesses", JSON.stringify(guessedCards))
+		setCookie("priorGuesses", JSON.stringify(guessedCards),undefined, cookiePath)
 	}
 	populateRowWithGuess(row, cardName, slowReveal)
 }
@@ -104,23 +92,17 @@ function updateStreak()
 	let today = new Date()
 	let yesterday = new Date(today.getDate() - 1)
 	let priorSolveDate = getCookie(lastSolvedDayCookie)
-	if(priorSolveDate == null)
+	if(priorSolveDate != null && priorSolveDate == dateToString(yesterday))
 	{
-		setCookie(lastSolvedDayCookie, dateToString(today))
-		setCookie(streakCookie, "1")
+		let streakLength = parseInt(getCookie(streakCookie))
+		setCookie(streakCookie, (streakLength + 1).toString(),365,cookiePath)
 	}
 	else
 	{
-		if (priorSolveDate == dateToString(yesterday))
-		{
-			let streakLength = parseInt(getCookie(streakCookie))
-			setCookie(streakCookie, (streakLength + 1).toString())
-		}
-		else
-		{
-			setCookie(streakCookie, "1")
-		}
+		setCookie(streakCookie, "1",365,cookiePath)
 	}
+	setCookie(lastSolvedDayCookie, dateToString(today),365,cookiePath)
+
 }
 function setupVictory(firstVictory)
 {

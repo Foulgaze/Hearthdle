@@ -77,15 +77,15 @@ main
 	margin: auto; 
 }
 #cardArtHolder {
-	width: auto; /* or a fixed size if needed */
-	height: 500px; /* Adjust as necessary */
+	width: max(40vw,35vh); 
+	aspect-ratio: 10/5;
 	display: flex;
 	justify-content: center;
 	margin-bottom: max(1vh, 1vw);
-	background-size: 1500%; /* Zoom level - 200% for 2x zoom */
-	background-position: center 20%; /* Center the zoomed image */
+	background-size: 1500%;
+	background-position: center 20%; 
 	background-repeat: no-repeat;
-	overflow: hidden; /* Ensure the container hides any excess */
+	overflow: hidden; 
   }
 
 #dropdownCenteringDiv
@@ -123,39 +123,23 @@ main
 }
 .individualGuess
 {
-	display: grid; 
-	grid-template-columns: repeat(6, minmax(0, max(5vw,5vh)));
-	justify-items: center;
-	gap: max(0.3vh,0.3vw);
+	margin-top: max(1vw,1vh);
+	text-align: center;
+	width:max(10vw,10vh);
+	aspect-ratio: 1666/856;
 	animation:ease-in 2s;
-
-}
-
-.individualGuess
-{
-	background-image: none;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
-}
-
-.individualGuess p
-{
-	font-size: max(1vh, 1vw) !important;
-}
-
-.individualGuess div 
-{
-	height: max(5vw,5vh);
-	width:100%;
-	display: flex;
+	display:flex;
 	align-items: center;
 	justify-content: center;
-	text-align: center;
-	font-size: max(1vw,1vh);
-	margin:0;
-	padding:0;
-	font-size:max(.9vw,.9vh);
+}
+.individualGuess p
+{
+	font-size: max(1.1vw, 1.4vh);
+	font-family: "Russo";
+	color: white;
 }
 
 .fadeInGuess 

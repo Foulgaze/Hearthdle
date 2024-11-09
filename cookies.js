@@ -12,18 +12,24 @@ function getCookie(name)
 	return null;
 }
 
-function setCookie(name, value) 
+function setCookie(name, value, expireTime, path="") 
 {
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999); 
-    const expires = "expires=" + endOfDay.toUTCString();
-	document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; SameSite=Lax; path=/`;
+	let expires = "expires="
+	if(expireTime == undefined)
+	{
+		const endOfDay = new Date();
+		endOfDay.setHours(23, 59, 59, 999); 
+		expires += endOfDay.toUTCString();
+	}
+	else
+	{
+		// Assumes expire time is in days
+		const expires = new Date(Date.now() + expireTime * 864e5).toUTCString();
+	}
+
+	document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; SameSite=Lax; path=/${path}`;
 }
 
-function setCookieExperiationDate(name, value, date)
-{
-	
-}
 
 function deleteCookie(name) 
 {
