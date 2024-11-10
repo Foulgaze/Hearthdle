@@ -183,6 +183,7 @@ function beginFetchingCardData()
 
 function pageIsLoaded()
 {
+	document.getElementById("close-button").addEventListener('click', () => {document.querySelector('.help-container').style.display = "none"})
 	fetch('../Assets/CardData/id_conversions.json').then
 	(response => response.json())
 	.then(data => {window.conversionData = data; beginFetchingCardData()})
@@ -191,5 +192,18 @@ function pageIsLoaded()
 	window.guessResults = document.getElementById("guessResults")
 
 }
+
+function setupHelpScreen() {
+	const helpToggle = document.getElementById('helpIcon')
+	const helpContainer = document.querySelector('.help-container')
+	
+	if (helpToggle) {
+		helpToggle.addEventListener('click', () => {
+			helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none'
+		});
+	}
+}
+
+document.addEventListener('DOMContentLoaded', setupHelpScreen)
 
 window.addEventListener('load', pageIsLoaded);

@@ -16,9 +16,107 @@
         <input type="image"  id="saveform" src="../Assets/hearthle_logo.webp" alt="Submit Form" />
       </a>
     </header>
-    
+    <div class="help-container" style="display: none;">
+      <div style = "width:100%; display:flex;align-items: end;"> 
+        <button id="close-button" aria-label="Close alert" type="button" data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+      <h1 class="help-title">How to Play</h1>
+      <div class="section">
+          <h2 class="section-title">Game Overview</h2>
+          <p>Guess the daily Hearthstone card! You have unlimited attempts to guess the correct card. After each guess, you'll see how close your guess was to the target card across different attributes.</p>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Card Attributes</h2>
+          <div class="attributes-grid">
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">📛</span> Name
+                  </div>
+                  <div class="attribute-description">The card's full name</div>
+              </div>
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">💎</span> Mana Cost
+                  </div>
+                  <div class="attribute-description">The card's mana cost (0-10+)</div>
+              </div>
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">🏹</span> Classes
+                  </div>
+                  <div class="attribute-description">Class the card belongs to (or Neutral)</div>
+              </div>
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">📊</span> Card Type
+                  </div>
+                  <div class="attribute-description">Minion, Spell, Weapon, Hero, Location, etc.</div>
+              </div>
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">✨</span> Rarity
+                  </div>
+                  <div class="attribute-description">Common, Rare, Epic, or Legendary</div>
+              </div>
+              <div class="attribute-item">
+                  <div class="attribute-name">
+                      <span class="icon">📦</span> Card Set
+                  </div>
+                  <div class="attribute-description">The expansion set the card is from</div>
+              </div>
+          </div>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Features</h2>
+          <ul class="features-list">
+              <li>
+                  <span class="icon">⏰</span>
+                  New card available daily at midnight
+              </li>
+              <li>
+                  <span class="icon">🔥</span>
+                  Track your daily streak of correct guesses
+              </li>
+              <li>
+                  <span class="icon">💾</span>
+                  Your progress is automatically saved
+              </li>
+          </ul>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Color Guide</h2>
+          <div class="color-guide">
+              <div class="color-item green-match">
+                  <div class="attribute-name">
+                      <span class="icon">🟢</span> Exact Match
+                  </div>
+                  <div class="attribute-description">Your guess matches the target card exactly</div>
+              </div>
+              <div class="color-item yellow-match">
+                  <div class="attribute-name">
+                      <span class="icon">🟡</span> Partial Match
+                  </div>
+                  <div class="attribute-description">Your guess is partially correct or close to the target</div>
+              </div>
+              <div class="color-item red-match">
+                  <div class="attribute-name">
+                      <span class="icon">🔴</span> No Match
+                  </div>
+                  <div class="attribute-description">Your guess doesn't match the target card</div>
+              </div>
+          </div>
+      </div>
+    </div>
       <main id = "menuBox">
+        
+  
         <div id = "guessBox">
+          
             <div id="centeringDiv">
               <div id="searchInputBackground">
                 <div id="searchInputHolder">
@@ -31,8 +129,10 @@
                 <div id="dropdownList" class="dropdown-content">
               </div>
             </div>
-            
           </div>
+        </div>
+        <div id = "helpIconHolder">
+          <input type="image" src = "../Assets/questionIcon.png" id = "helpIcon">
         </div>
         <div id = "guessResults">
          
