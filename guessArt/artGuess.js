@@ -18,16 +18,6 @@ function cardDataIsLoaded(data)
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
 }
 
-function loadPriorGuesses()
-{
-	let priorGuesses = getCookie("priorGuesses")
-	if(priorGuesses == null)
-	{
-		return
-	}
-	JSON.parse(priorGuesses).forEach(cardName => onCardGuess(cardName, false))
-}
-
 
 function setupGuessCategories()
 {
@@ -72,42 +62,6 @@ function onCardGuess(cardName, slowReveal = true)
 
 }
 
-function setCountdownTimer(countdownElement)
-{
-	let currentDate = new Date()
-	if(priorDay != null && currentDate.getDate() != priorDay.getDate())
-	{
-		deleteCookie("priorGuesses") // Just in case not automatically deleted 
-		location.reload()
-	}
-	let remainingHours = (23 - currentDate.getHours()).toString().padStart(2, '0')
-	let remainingMinutes = (59 - currentDate.getMinutes()).toString().padStart(2, '0')
-	let remainingSeconds = (59 - currentDate.getSeconds()).toString().padStart(2, '0')
-	countdownElement.innerHTML = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`
-	priorDay = currentDate
-
-}
-function dateToString(date)
-{
-	return `${date.getDate()},${date.getMonth()},${date.getYear()}`
-}
-function updateStreak()
-{
-	let date = new Date()
-	date.setDate(date.getDate() - 1)
-	let priorSolveDate = getCookie(lastSolvedDayCookie)
-	if(priorSolveDate != null && priorSolveDate == dateToString(date))
-	{
-		let streakLength = parseInt(getCookie(streakCookie))
-		setCookie(streakCookie, (streakLength + 1).toString(),365,cookiePath)
-	}
-	else
-	{
-		setCookie(streakCookie, "1",365,cookiePath)
-	}
-	setCookie(lastSolvedDayCookie, dateToString(new Date()),365,cookiePath)
-
-}
 function endGuessing(firstVictory, wonGame)
 {
 	// Clear elements
@@ -127,7 +81,7 @@ function endGuessing(firstVictory, wonGame)
 
 		if(firstVictory)
 		{
-			updateStreak()
+			updateStreak(lastSolvedDayCookie, streakCookie, cookiePath)
 		}
 		document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
 	}
@@ -146,46 +100,3 @@ function endGuessing(firstVictory, wonGame)
 	setCountdownTimer(countdownTimer)
 	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
 }
-
-
-
-function dataHasErrored(error)
-{
-	console.log(`Page has errored ${error}`);
-}
-
-function beginFetchingCardData()
-{
-	fetch('../Assets/CardData/all_cards.json').then
-	(response => response.json()).then
-	(data => {cardDataIsLoaded(data)}).catch
-	(error => dataHasErrored(error));
-}
-
-function pageIsLoaded()
-{
-	document.getElementById("close-button").addEventListener('click', () => {document.querySelector('.help-container').style.display = "none"})
-	fetch('../Assets/CardData/id_conversions.json').then
-	(response => response.json())
-	.then(data => {window.conversionData = data; beginFetchingCardData()})
-	.catch(error => dataHasErrored(error));
-
-	window.guessResults = document.getElementById("guessResults")
-
-}
-
-function setupHelpScreen() {
-	const helpToggle = document.getElementById('helpIcon')
-	const helpContainer = document.querySelector('.help-container')
-	
-	if (helpToggle) {
-		helpToggle.addEventListener('click', () => {
-			helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none'
-		});
-	}
-}
-
-document.addEventListener('DOMContentLoaded', setupHelpScreen)
-
-
-window.addEventListener('load', pageIsLoaded);

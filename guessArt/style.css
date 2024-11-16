@@ -76,7 +76,9 @@ main
 	width: max(40vw,35vh); 
 	margin: auto; 
 }
-#cardArtHolder {
+
+#cardArtHolder 
+{
 	width: max(40vw,35vh); 
 	aspect-ratio: 10/5;
 	display: flex;
