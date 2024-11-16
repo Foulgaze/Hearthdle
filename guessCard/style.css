@@ -215,14 +215,39 @@ main
 	align-items: center;
 	justify-content: center;
 }
-#helpIconHolder
+#helpSetAlign
 {
 	display:flex;
-	align-items:end;
+	justify-content: space-between;
 	width:max(40vw,35vh);
 	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
+}
+#setHolder
+{
+	display: grid;
+	grid-template-columns: 1fr 5fr;
+	background-image: url("../Assets/CardGuess/setBackground.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width:40%;
+	height:100%;
+	padding-left: max(.5vw,.5vh);
+
+}
+#setIconHolder
+{
+	display: flex; 
+	justify-content: center; 
+	align-items:  center; 
+	object-fit: contain;
+}
+#setName
+{
+	font-family: "Russo";
+	padding-left: max(.7vw,.7vh);
 }
 #helpIcon
 {

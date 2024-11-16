@@ -82,7 +82,8 @@ main
     background-position: center center;   
 	color:black;
 	font-family: "Russo";
-	font-size: max(.8vw,1vh);
+	color: #533E20;
+	font-size: max(.7vw,.9vh);
 }
 
 footer
