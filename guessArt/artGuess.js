@@ -93,26 +93,20 @@ function dateToString(date)
 }
 function updateStreak()
 {
-	let today = new Date()
-	let yesterday = new Date(today.getDate() - 1)
+	let date = new Date()
+	date.setDate(date.getDate() - 1)
 	let priorSolveDate = getCookie(lastSolvedDayCookie)
-	if(priorSolveDate == null)
+	if(priorSolveDate != null && priorSolveDate == dateToString(date))
 	{
-		setCookie(lastSolvedDayCookie, dateToString(today), 365, cookiePath)
-		setCookie(streakCookie, "1", 365, cookiePath)
+		let streakLength = parseInt(getCookie(streakCookie))
+		setCookie(streakCookie, (streakLength + 1).toString(),365,cookiePath)
 	}
 	else
 	{
-		if (priorSolveDate == dateToString(yesterday))
-		{
-			let streakLength = parseInt(getCookie(streakCookie))
-			setCookie(streakCookie, (streakLength + 1).toString(),365, cookiePath )
-		}
-		else
-		{
-			setCookie(streakCookie, "1", 365, cookiePath)
-		}
+		setCookie(streakCookie, "1",365,cookiePath)
 	}
+	setCookie(lastSolvedDayCookie, dateToString(new Date()),365,cookiePath)
+
 }
 function endGuessing(firstVictory, wonGame)
 {
