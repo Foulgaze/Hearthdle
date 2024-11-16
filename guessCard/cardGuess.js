@@ -110,7 +110,7 @@ function updateStreak()
 	let date = new Date()
 	date.setDate(date.getDate() - 1)
 	let priorSolveDate = getCookie(lastSolvedDayCookie)
-	if(priorSolveDate != null && priorSolveDate == dateToString(yesterday))
+	if(priorSolveDate != null && priorSolveDate == dateToString(date))
 	{
 		let streakLength = parseInt(getCookie(streakCookie))
 		setCookie(streakCookie, (streakLength + 1).toString(),365,cookiePath)
@@ -119,7 +119,7 @@ function updateStreak()
 	{
 		setCookie(streakCookie, "1",365,cookiePath)
 	}
-	setCookie(lastSolvedDayCookie, dateToString(today),365,cookiePath)
+	setCookie(lastSolvedDayCookie, dateToString(new Date()),365,cookiePath)
 
 }
 function setupVictory(firstVictory)
