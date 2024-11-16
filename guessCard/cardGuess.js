@@ -89,8 +89,8 @@ function dateToString(date)
 }
 function updateStreak()
 {
-	let today = new Date()
-	let yesterday = new Date(today.getDate() - 1)
+	let date = new Date()
+	date.setDate(date.getDate() - 1)
 	let priorSolveDate = getCookie(lastSolvedDayCookie)
 	if(priorSolveDate != null && priorSolveDate == dateToString(yesterday))
 	{
