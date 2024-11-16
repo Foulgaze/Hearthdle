@@ -122,10 +122,12 @@ function pageIsLoaded()
 
 function setupHelpScreen() {
 	const helpToggle = document.getElementById('helpIcon')
+	console.log("Setting up!")
 	const helpContainer = document.querySelector('.help-container')
 	
 	if (helpToggle) {
 		helpToggle.addEventListener('click', () => {
+			console.log("CLICKED")
 			helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none'
 		});
 	}

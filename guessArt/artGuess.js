@@ -100,19 +100,3 @@ function endGuessing(firstVictory, wonGame)
 	setCountdownTimer(countdownTimer)
 	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
 }
-
-function setupHelpScreen() {
-	const helpToggle = document.getElementById('helpIcon')
-	const helpContainer = document.querySelector('.help-container')
-	
-	if (helpToggle) {
-		helpToggle.addEventListener('click', () => {
-			helpContainer.style.display = helpContainer.style.display === 'none' ? 'block' : 'none'
-		});
-	}
-}
-
-document.addEventListener('DOMContentLoaded', setupHelpScreen)
-
-
-window.addEventListener('load', pageIsLoaded);
