@@ -14,8 +14,8 @@
         "12": "Neutral"
     },
     "rarityId": {
-        "1": "Common",
-        "2": "Free",
+        "1": "Free",
+        "2": "Common",
         "3": "Rare",
         "4": "Epic",
         "5": "Legendary"
@@ -175,7 +175,6 @@
         "13": "Goblins vs Gnomes",
         "12": "Curse of Naxxramas",
         "1635": "Legacy",
-        "1637": "Core",
-        "0": "basic"
+        "1637": "Core"
     }
 }

@@ -20,8 +20,26 @@ function cardDataIsLoaded(data)
 	window.cardToGuess = getDailyCard(cardData)
 	console.log(cardToGuess)
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
+	setupCardSet()
 	loadPriorGuesses()
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
+}
+
+function setupCardSet()
+{
+	set_name = conversionData["cardSetId"][cardToGuess["cardSetId"]]
+	document.getElementById("setName").innerHTML = set_name
+	console.log(set_name)
+	set_name = set_name.replaceAll(" ", "_").replaceAll('’', "'")
+	// Object.values(conversionData["cardSetId"]).forEach(s_name =>
+	// {
+	// 	var http = new XMLHttpRequest();
+	// 	s_name = s_name.replaceAll(" ", "_").replaceAll('’', "'")
+	// 	http.open('HEAD', `../Assets/CardGuess/SetIcons/${s_name}.svg`);
+	// 	http.send(); // Test for making sure everythign works
+	// 	console.log(http.status != 404)
+	// })
+	document.getElementById("setIcon").src = `../Assets/CardGuess/SetIcons/${set_name}.svg`
 }
 
 function loadPriorGuesses()
