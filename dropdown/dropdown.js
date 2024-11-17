@@ -14,11 +14,17 @@ function filterFunction()
 	}
 	let currentDropdownSize = 0
 	let dropdownSize = dropdownElements.length
-
+	let backupOptions = []
 	for(var key in cardData)
 	{
-		if(key.startsWith(input) && !guessedCards.includes(key))
+		let inputIndex = key.indexOf(input)
+		if(inputIndex != -1 && !guessedCards.includes(key))
 		{
+			if(inputIndex != 0)
+			{
+				backupOptions.push(cardData[key]["name"])
+				continue;
+			}
 			let currentElement = dropdownElements[currentDropdownSize++]
 			currentElement.innerHTML = cardData[key]["name"]
 			currentElement.classList.add("show")
@@ -27,6 +33,13 @@ function filterFunction()
 				break
 			}
 		}
+	}
+	let backupIndex = 0
+	while(currentDropdownSize < dropdownSize && backupIndex < backupOptions.length)
+	{
+		let currentElement = dropdownElements[currentDropdownSize++]
+		currentElement.innerHTML = backupOptions[backupIndex++]
+		currentElement.classList.add("show")
 	}
 	if(currentDropdownSize != 0)
 	{
