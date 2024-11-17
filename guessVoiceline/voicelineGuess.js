@@ -4,6 +4,8 @@ window.priorDay = null
 const lastSolvedDayCookie = "priorSolveDate"
 const streakCookie = "streak"
 const cookiePath = "guessVoiceline"
+const inputRange = document.querySelector('.custom-input');
+const volumeCookie = "volume"
 function cardDataIsLoaded(cardData)
 {
 	fetch('../Assets/CardData/voiceline_names.json').then
@@ -20,15 +22,40 @@ function cardNamesAreLoaded(cardData, nameData)
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
 	setupVoicelines()
 	loadPriorGuesses()
+	setAudio(true)
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
+}
+
+function setAudio(init = false)
+{
+	volume = inputRange.value
+	if(init)
+	{
+		console.log("init")
+		let priorVolume = getCookie(volumeCookie)
+		if(priorVolume != null)
+		{
+			let parsedVolume = parseFloat(priorVolume)
+			if(parsedVolume != NaN)
+			{
+				volume = parsedVolume
+				inputRange.value = parsedVolume
+				console.log(inputRange.value)
+			}
+		}
+	}
+	playAudio.volume = volume
+	attackAudio.volume = volume
+	deathAudio.volume = volume
+	setCookie(volumeCookie, `${volume}`,365, cookiePath)
 }
 
 function setupVoicelines()
 {
 	let buttons = document.getElementsByClassName("voiceButton")
-	let playAudio = new Audio(cardToGuess["voicelines"]["play"])
-	let attackAudio = new Audio(cardToGuess["voicelines"]["attack"])
-	let deathAudio = new Audio(cardToGuess["voicelines"]["death"])
+	window.playAudio = new Audio(cardToGuess["voicelines"]["play"])
+	window.attackAudio = new Audio(cardToGuess["voicelines"]["attack"])
+	window.deathAudio = new Audio(cardToGuess["voicelines"]["death"])
 	buttons[0].addEventListener("click", () => {playAudio.play()})
 	buttons[1].addEventListener("click", () => {attackAudio.play()})
 	buttons[2].addEventListener("click", () => {deathAudio.play()})
@@ -101,3 +128,5 @@ function endGuessing(firstVictory, wonGame)
 	setCountdownTimer(countdownTimer)
 	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
 }
+
+inputRange.addEventListener('input', () => setAudio(false));
