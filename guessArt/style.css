@@ -139,7 +139,7 @@ main
 }
 .individualGuess p
 {
-	font-size: max(1.1vw, 1.4vh);
+	font-size: max(1.1vw, 1.1vh);
 	font-family: "Russo";
 	color: white;
 }

@@ -3,29 +3,36 @@ window.countDownTimer = null
 window.priorDay = null
 const lastSolvedDayCookie = "priorSolveDate"
 const streakCookie = "streak"
-const cookiePath = "guessQuote"
-function cardDataIsLoaded(data)
+const cookiePath = "guessVoiceline"
+function cardDataIsLoaded(cardData)
 {
-	window.cardData = data
-	window.cardToGuess = getDailyCard(cardData, 2)
+	fetch('../Assets/CardData/voiceline_names.json').then
+	(response => response.json())
+	.then(data => {cardNamesAreLoaded(cardData, data)})
+	.catch(error => dataHasErrored(error));
+}
+
+function cardNamesAreLoaded(cardData, nameData)
+{
+	window.cardData = cardData
+	window.cardToGuess = cardData[getDailyCardFromName(nameData, 5)]
 	console.log(cardToGuess)
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
+	setupVoicelines()
 	loadPriorGuesses()
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
-
 }
 
-function loadPriorGuesses()
+function setupVoicelines()
 {
-	let priorGuesses = getCookie("priorGuesses")
-	if(priorGuesses == null)
-	{
-		return
-	}
-	JSON.parse(priorGuesses).forEach(cardName => onCardGuess(cardName, false))
+	let buttons = document.getElementsByClassName("voiceButton")
+	let playAudio = new Audio(cardToGuess["voicelines"]["play"])
+	let attackAudio = new Audio(cardToGuess["voicelines"]["attack"])
+	let deathAudio = new Audio(cardToGuess["voicelines"]["death"])
+	buttons[0].addEventListener("click", () => {playAudio.play()})
+	buttons[1].addEventListener("click", () => {attackAudio.play()})
+	buttons[2].addEventListener("click", () => {deathAudio.play()})
 }
-
-
 function setupGuessCategories()
 {
 	const row = document.createElement("div")
@@ -54,51 +61,8 @@ function onCardGuess(cardName, slowReveal = true)
 		endGuessing(slowReveal, isCorrectCard)
 		return
 	}
-
 }
 
-function setCountdownTimer(countdownElement)
-{
-	let currentDate = new Date()
-	if(priorDay != null && currentDate.getDate() != priorDay.getDate())
-	{
-		deleteCookie("priorGuesses") // Just in case not automatically deleted 
-		location.reload()
-	}
-	let remainingHours = (23 - currentDate.getHours()).toString().padStart(2, '0')
-	let remainingMinutes = (59 - currentDate.getMinutes()).toString().padStart(2, '0')
-	let remainingSeconds = (59 - currentDate.getSeconds()).toString().padStart(2, '0')
-	countdownElement.innerHTML = `${remainingHours}:${remainingMinutes}:${remainingSeconds}`
-	priorDay = currentDate
-
-}
-function dateToString(date)
-{
-	return `${date.getDate()},${date.getMonth()},${date.getYear()}`
-}
-function updateStreak()
-{
-	let today = new Date()
-	let yesterday = new Date(today.getDate() - 1)
-	let priorSolveDate = getCookie(lastSolvedDayCookie)
-	if(priorSolveDate == null)
-	{
-		setCookie(lastSolvedDayCookie, dateToString(today), 365, cookiePath)
-		setCookie(streakCookie, "1", 365, cookiePath)
-	}
-	else
-	{
-		if (priorSolveDate == dateToString(yesterday))
-		{
-			let streakLength = parseInt(getCookie(streakCookie))
-			setCookie(streakCookie, (streakLength + 1).toString(),365, cookiePath )
-		}
-		else
-		{
-			setCookie(streakCookie, "1", 365, cookiePath)
-		}
-	}
-}
 function endGuessing(firstVictory, wonGame)
 {
 	// Clear elements
@@ -118,7 +82,7 @@ function endGuessing(firstVictory, wonGame)
 
 		if(firstVictory)
 		{
-			updateStreak()
+			updateStreak(lastSolvedDayCookie, streakCookie, cookiePath)
 		}
 		document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
 	}
@@ -137,31 +101,3 @@ function endGuessing(firstVictory, wonGame)
 	setCountdownTimer(countdownTimer)
 	countDownTimer = setInterval(() => {setCountdownTimer(countdownTimer)}, 1000)
 }
-
-
-
-function dataHasErrored(error)
-{
-	console.log(`Page has errored ${error}`);
-}
-
-function beginFetchingCardData()
-{
-	fetch('../Assets/CardData/all_cards.json').then
-	(response => response.json()).then
-	(data => {cardDataIsLoaded(data)}).catch
-	(error => dataHasErrored(error));
-}
-
-function pageIsLoaded()
-{
-	fetch('../Assets/CardData/id_conversions.json').then
-	(response => response.json())
-	.then(data => {window.conversionData = data; beginFetchingCardData()})
-	.catch(error => dataHasErrored(error));
-
-	window.guessResults = document.getElementById("guessResults")
-
-}
-
-window.addEventListener('load', pageIsLoaded);

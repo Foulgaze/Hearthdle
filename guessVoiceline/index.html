@@ -16,10 +16,123 @@
         <input type="image"  id="saveform" src="../Assets/hearthle_logo.webp" alt="Submit Form" />
       </a>
     </header>
-    
+    <div class="help-container" style="display: none;">
+      <div style="width: 100%; display: flex; justify-content: flex-end; align-items: end;"> 
+        <button id="close-button" aria-label="Close alert" type="button" data-close>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <h1 class="help-title">How to Play: Hearthstone Art Guesser</h1>
+
+      <div class="section">
+          <h2 class="section-title">Game Overview</h2>
+          <p>Can you identify the Hearthstone card from its artwork? Each day features a new card to guess, with the image becoming clearer after each attempt!</p>
+      </div>
+
+      <div class="section gameplay">
+          <h2 class="section-title">How to Play</h2>
+          <ul class="gameplay-list">
+              <li>
+                  <span class="icon">1️⃣</span>
+                  <div>You start with a highly zoomed in view of the card art (1500% zoom)</div>
+              </li>
+              <li>
+                  <span class="icon">2️⃣</span>
+                  <div>Type your guess into the search box and select a card</div>
+              </li>
+              <li>
+                  <span class="icon">3️⃣</span>
+                  <div>After each incorrect guess, the image will zoom out, revealing more of the artwork</div>
+              </li>
+              <li>
+                  <span class="icon">4️⃣</span>
+                  <div>You have <span class="highlight">6 attempts</span> to guess the card correctly</div>
+              </li>
+          </ul>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Zoom Levels</h2>
+          <div class="zoom-levels">
+              <div class="zoom-item">
+                  <strong>Second Guess</strong>
+                  <div>1000% zoom</div>
+              </div>
+              <div class="zoom-item">
+                  <strong>Third Guess</strong>
+                  <div>750% zoom</div>
+              </div>
+              <div class="zoom-item">
+                  <strong>Fourth Guess</strong>
+                  <div>500% zoom</div>
+              </div>
+              <div class="zoom-item">
+                  <strong>Fifth Guess</strong>
+                  <div>250% zoom</div>
+              </div>
+              <div class="zoom-item">
+                  <strong>Final Guess</strong>
+                  <div>150% zoom</div>
+              </div>
+
+          </div>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Features</h2>
+          <ul class="features-list">
+              <li>
+                  <span class="icon">⏰</span>
+                  <div>New card available daily at midnight</div>
+              </li>
+              <li>
+                  <span class="icon">🔥</span>
+                  <div>Track your daily streak of correct guesses</div>
+              </li>
+              <li>
+                  <span class="icon">💾</span>
+                  <div>Your progress is automatically saved</div>
+              </li>
+              <li>
+                  <span class="icon">🎯</span>
+                  <div>Green background indicates a correct guess, red indicates incorrect</div>
+              </li>
+          </ul>
+      </div>
+
+      <div class="section">
+          <h2 class="section-title">Tips</h2>
+          <ul class="gameplay-list">
+              <li>
+                  <span class="icon">💡</span>
+                  <div>Look for distinctive colors, characters, or objects in the zoomed portion</div>
+              </li>
+              <li>
+                  <span class="icon">💡</span>
+                  <div>Consider the art style and common themes in Hearthstone sets</div>
+              </li>
+              <li>
+                  <span class="icon">💡</span>
+                  <div>Use each zoom level strategically - don't rush your guesses!</div>
+              </li>
+          </ul>
+      </div>
+  </div>
       <main id = "menuBox">
-        <div id = "cardArtHolder">
-          <img id = "cardArt">
+        <h1 style="font-family: 'Russo'; text-align: center;">Which card says?</h1>
+        <div id = "voicelineHolder" >
+          <div class = "voiceGuess">
+            <input class="voiceButton" type="image" src="../Assets/VoiceGuess/playBtn.png" />
+            <p>On Play</p>
+          </div>
+          <div class = "voiceGuess">
+            <input class="voiceButton" type="image" src="../Assets/VoiceGuess/attackBtn.png" />
+            <p>On Attack</p>
+          </div>
+          <div class = "voiceGuess">
+            <input class="voiceButton" type="image" src="../Assets/VoiceGuess/deathBtn.png" />
+            <p>On Death</p>
+          </div>
         </div>
         <div id = "guessBox">
             <div id="centeringDiv">
@@ -37,7 +150,9 @@
             
           </div>
         </div>
-        <h1 style ="font-family: 'Russo'; text-align: center;" id ="guessesRemaining">X Guesses Left</h1>
+        <div id = "helpIconHolder">
+          <input type="image" src = "../Assets/questionIcon.png" id = "helpIcon">
+        </div>
         <div id = "guessResults">
          
         </div>
@@ -60,9 +175,9 @@
         
       </main>
 
-    <script src = "../cookies.js"></script>
+    <script src = "../sharedFeatures.js"></script>
     <script src = "../dropdown/dropdown.js"></script>
     <script src = "../cardPicker.js"></script>
-    <script src="voiceGuess.js"></script>
+    <script src="voicelineGuess.js"></script>
   </body>
 </html>
