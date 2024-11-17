@@ -20,7 +20,6 @@ function cardDataIsLoaded(data)
 	window.cardToGuess = getDailyCard(cardData)
 	console.log(cardToGuess)
 	document.getElementById("correctGuessImage").src = cardToGuess["image"]
-	setupCardSet()
 	loadPriorGuesses()
 	setupDropdown(onCardGuess, document.getElementById("searchInput"))
 }
@@ -83,10 +82,13 @@ function setupVictory(firstVictory)
 	// Clear elements
 	document.querySelectorAll('.victoryCondition').forEach(element =>
 	{
-		console.log(element)
 		element.classList.remove('victoryCondition')
 	})
-	document.getElementById("guessBox").remove()
+
+	document.querySelectorAll('.hideOnVictory').forEach(element =>
+	{
+		element.style.display = "none"
+	})
 	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
 
 	//Setup text

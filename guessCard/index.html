@@ -115,9 +115,9 @@
       </div>
     </div>
       <main id = "menuBox">
-        
+        <h1 style="font-family: 'Russo'; text-align: center;" class = "hideOnVictory">Can you guess today's card?</h1>
   
-        <div id = "guessBox">
+        <div id = "guessBox" class = "hideOnVictory">
           
             <div id="centeringDiv">
               <div id="searchInputBackground">
@@ -133,12 +133,14 @@
             </div>
           </div>
         </div>
-        <div id = "helpSetAlign">
-          <div id = "setHolder">
+        
+        <div id = "helpSetAlign" class = "hideOnVictory" class="blur">
+          <div id = "setHolder" onclick="setupCardSet()">
             <div id = "setIconHolder">
-              <img id = "setIcon" style="text-align: center;">
+              <img id = "setIcon" style="text-align: center;" src="../Assets/CardGuess/bulb.svg">
+              <i class="fa-regular fa-lightbulb"></i>
             </div>
-            <p id = "setName">Set Card</p>
+            <p id = "setName">Reveal Set</p>
           </div>
           <div style = "display: flex; align-items: center; justify-content: center;">
             <input type="image" src = "../Assets/questionIcon.png" id = "helpIcon">
