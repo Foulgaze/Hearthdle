@@ -253,6 +253,13 @@ main
 	padding-left: max(.7vw,.7vh);
 	font-size: max(1.2vw,1.5vh);
 }
+@media (min-width:2000px) 
+{
+	#setName
+	{
+		font-size: max(.9vw,1.5vh);
+	}
+}
 #helpIcon
 {
 	margin-left: auto;
