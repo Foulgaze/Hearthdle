@@ -76,17 +76,30 @@ main
 	width: max(40vw,35vh); 
 	margin: auto; 
 }
-#cardArtHolder {
+#voicelineHolder
+{
 	width: max(40vw,35vh); 
-	aspect-ratio: 10/5;
-	display: flex;
-	justify-content: center;
-	margin-bottom: max(1vh, 1vw);
-	background-size: 1500%;
-	background-position: center 20%; 
-	background-repeat: no-repeat;
-	overflow: hidden; 
-  }
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	width:max(40vw,35vh);
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.voiceGuess
+{
+	object-fit: contain;
+	text-align: center;
+	font-family: "Russo";
+}
+.voiceButton
+{
+	object-fit: contain;
+	width: 25%;
+	height: auto;
+	/* background-image: url("../Assets/VoiceGuess/voiceButton.png"); */
+}
+
 
 #dropdownCenteringDiv
 {
@@ -137,7 +150,7 @@ main
 }
 .individualGuess p
 {
-	font-size: max(1.1vw, 1.4vh);
+	font-size: max(1.1vw, 1.1vh);
 	font-family: "Russo";
 	color: white;
 }
@@ -230,4 +243,114 @@ footer
 {
 	bottom:0;
 	height:10%;
+}
+
+#helpIconHolder
+{
+	display:flex;
+	align-items:end;
+	width:max(40vw,35vh);
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+#helpIcon
+{
+	margin-left: auto;
+	height:max(2.5vw,2.5vh);
+	width:max(2.5vw,2.5vh);
+}
+
+.help-container {
+	font-family: Arial, sans-serif;
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
+	background: white;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	z-index: 1;
+	position: absolute;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	top:0;
+	text-align: center;
+}
+
+.help-title {
+	text-align: center;
+	color: #2b2b2b;
+	margin-bottom: 30px;
+}
+
+.section {
+	margin-bottom: 30px;
+}
+
+.section-title {
+	font-size: 1.5em;
+	color: #2b2b2b;
+	margin-bottom: 15px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #eee;
+}
+
+.gameplay {
+	background: #f8f9fa;
+	padding: 20px;
+	border-radius: 6px;
+	margin-bottom: 20px;
+}
+
+.gameplay-list {
+	list-style: none;
+	padding: 0;
+}
+
+.gameplay-list li {
+	margin-bottom: 12px;
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+}
+
+.zoom-levels {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 15px;
+	margin: 20px 0;
+}
+
+.zoom-item {
+	background: #fff;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.features-list {
+	list-style: none;
+	padding: 0;
+}
+
+.features-list li {
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.icon {
+	font-size: 1.2em;
+	min-width: 24px;
+}
+
+.highlight {
+	background: #fff3cd;
+	padding: 2px 5px;
+	border-radius: 3px;
 }

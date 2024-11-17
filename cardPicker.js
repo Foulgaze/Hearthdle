@@ -21,3 +21,9 @@ function getDailyCard(cardData, seedOffset = 1)
 	let randomCard = getRandomRange(keys.length, seedOffset)
 	return cardData[keys[randomCard]]
 }
+
+function getDailyCardFromName(cardNames, seedOffset = 1)
+{
+	let randomCard = getRandomRange(cardNames.length, seedOffset)
+	return cardNames[randomCard]
+}
