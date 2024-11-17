@@ -70,7 +70,10 @@ function endGuessing(firstVictory, wonGame)
 		console.log(element)
 		element.classList.remove('victoryCondition')
 	})
-	document.getElementById("guessBox").remove()
+	document.querySelectorAll('.hideOnVictory').forEach(element =>
+	{
+		element.style.display = "none"
+	})
 	document.getElementById("menuBox").style.gridTemplateRows = "1fr"
 
 	if(wonGame)
