@@ -353,3 +353,44 @@ footer
 	padding: 2px 5px;
 	border-radius: 3px;
 }
+
+.custom-input {
+	-webkit-appearance: none;
+	background: url('../Assets/VoiceGuess/volumeSliderBackground.png') no-repeat center;
+	aspect-ratio:400/100;
+	width:20%;
+	padding-right: 2%;
+	padding-left: 2%;
+	background-size: cover; /* Adjust size to fit the slider track */
+	outline: none;
+	margin: 0;
+  }
+  
+  .custom-input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: max(2vw,2vh); 
+	height: max(2vw,2vh); 
+	background: url('../Assets/VoiceGuess/volumeSlider.png') no-repeat center;
+	background-size: contain;
+	cursor: pointer;
+	border: none; 
+  }
+  
+  .custom-input::-moz-range-thumb {
+	width: max(2vw,2vh); 
+	height: max(2vw,2vh); 
+	background: url('../Assets/VoiceGuess/volumeSlider.png') no-repeat center;
+	background-size: contain;
+	cursor: pointer;
+	border: none;
+  }
+  
+  .custom-input::-ms-thumb {
+	width: max(2vw,2vh); 
+	height: max(2vw,2vh); 
+	background: url('../Assets/VoiceGuess/volumeSlider.png') no-repeat center;
+	background-size: contain;
+	cursor: pointer;
+	border: none;
+  }

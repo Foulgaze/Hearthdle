@@ -52,7 +52,7 @@ main
 {
 	width:max(40vw,35vh);
 	height:max(4.6vw ,4.025vh);
-	max-width: 500px;
+	max-width: 600px;
 	max-height: 57.5px;
 	background-image: url("../Assets/SearchBar/searchBar.png");
 	background-size:     cover; 
@@ -103,7 +103,6 @@ main
 	width:max(40vw,35vh);
 	display:flex;
 	justify-content: center;
-	max-width: 500px;
 	position: relative;
 }
 #guessBox
@@ -239,7 +238,6 @@ footer
 	display:flex;
 	align-items:end;
 	width:max(40vw,35vh);
-	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
 	
