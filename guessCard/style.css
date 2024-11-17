@@ -251,13 +251,13 @@ main
 {
 	font-family: "Russo";
 	padding-left: max(.7vw,.7vh);
-	font-size: max(1.2vw,1.5vh);
+	font-size: max(1vw,1.5vh);
 }
 @media (min-width:2000px) 
 {
 	#setName
 	{
-		font-size: max(.9vw,1.5vh);
+		font-size: max(.8vw,1.5vh);
 	}
 }
 #helpIcon
