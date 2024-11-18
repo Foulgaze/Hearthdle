@@ -101,6 +101,7 @@ main
 #dropdownHolder
 {
 	width:max(40vw,35vh);
+	max-width: 500px;
 	display:flex;
 	justify-content: center;
 	position: relative;
