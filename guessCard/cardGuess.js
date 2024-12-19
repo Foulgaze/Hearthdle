@@ -109,7 +109,7 @@ function setupVictory(firstVictory)
 	{
 		updateStreak(lastSolvedDayCookie, streakCookie, cookiePath)
 	}
-	document.getElementById("streak").innerHTML = `Streak 🔥${getCookie(streakCookie)}`
+	document.getElementById("streak").innerHTML = `🔥${getCookie(streakCookie)}`
 
 }
 

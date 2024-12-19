@@ -149,14 +149,24 @@
         <div id = "guessResults">
          
         </div>
-        <h2 id = "streak"></h2>
 
-        <div id = "countdownTimer" class = "victoryCondition">
-          <div>
-            <p style = "font-family: 'Russo';text-align: center; padding:0; margin:0;font-size:max(.75vw,1.25vh);">Next card in</p>
-            <p id = "countdown"></p>
+        <div id = "plaqueBackground">
+          <div id = "countdownTimer" class = "victoryCondition">
+            <p id = "countdownHeader">Next card in</p>
+            <div class = "centerVertHori">
+              <p id = "countdown"></p>
+            </div>
+            <div id = "victoryOptions"> 
+              <input type="image" class="victoryOption" src="../Assets/Icons/stats_icon.svg" alt="Stats View" />
+              <p id = "streak"></p>
+              <input type="image"  class="victoryOption" src="../Assets/Icons/share_icon.svg" alt="Share Button" />
+            </div>
           </div>
         </div>
+
+
+
+
         <div id = "correctGuessHolder">
           <div id = "correctGuess" class = "victoryCondition">
             <h1 id = "victoryText">You did it</h1>
